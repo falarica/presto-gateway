@@ -1,0 +1,36 @@
+{
+    "catalogs": [
+        {
+            "user": "admin",
+            "catalog": "system",
+            "allow": true
+        },
+        {
+            "user": "alice",
+            "catalog": "tpch",
+            "allow": true,
+            "mode" : ""
+        },
+        {
+            "catalog": "system",
+            "allow": false
+        }
+    ],
+    "clusters": [
+        {
+            "user": "admin",
+            "cluster": "system",
+            "allow": true
+        },
+        {
+            "user": "alice",
+            "catalog": "tpch",
+            "allow": true,
+            "mode" : ""
+        },
+        {
+            "catalog": "system",
+            "allow": false
+        }
+    ]
+}

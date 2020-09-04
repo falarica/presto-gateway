@@ -1,0 +1,109 @@
+<div class="" id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row row-stat">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default panel-table">
+              <div class="panel-heading panel-heading-no-divider">Queries</div>
+              <div class="row mb-3">
+                <div class="col-md-8">
+                  <input
+                    #search
+                    id="search"
+                    type="text"
+                    class="form-control"
+                    placeholder="Search User, source, query ID, query state, resource group, or query text"
+                    aria-label="Search"
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+              <div class="table-responsive">
+                <ngx-datatable #mydatatable class="bootstrap" [sortType]="'multi'" [headerHeight]="50"
+                  [footerHeight]="40" [rowHeight]="'auto'" [rows]="queryList" [columnMode]="'force'" [limit]="10"
+                  [loadingIndicator]="loadingIndicator">
+                  <!-- Row Detail Template -->
+                  <ngx-datatable-row-detail [rowHeight]="130" #myDetailRow (toggle)="onDetailToggle($event)">
+                    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                      <div class="row m-0">
+                        <div class="col-md-6 pl-0 pt-2">
+                          <div class="row m-0 mb-2">
+                            <div class="col-md-4">
+                              <span tooltip="User" placement="right" container="body"><i
+                                  class="fa fa-user"></i>{{row?.session?.user}}</span>
+                            </div>
+                            <div class="col-md-4">
+                              <span tooltip="Source" placement="right" container="body"><i
+                                  class="fa fa-sign-in"></i>{{row?.session?.source}}</span>
+                            </div>
+                            <div class="col-md-4"><span tooltip="Resource Group" placement="right" container="body"><i class="fa fa-road"
+                                ></i>{{getResourceGroup(row?.resourceGroupId)}}</span>
+                            </div>
+                          </div>
+                          <span class="badge badge-light ml-2 mb-2">Stats : </span>
+                          <div class="row m-0 mb-1">
+                            <div class="col-md-4"><span tooltip="Wall time spent executing the query (not including queued time)" placement="right" container="body"><i class="fa fa-hourglass-start"
+                                ></i>{{row?.queryStats?.executionTime}}</span>
+                              </div>
+                            <div class="col-md-4"><span tooltip="Total query wall time" placement="right" container="body"><i class="fa fa-clock-o"
+                                ></i>{{row?.queryStats?.elapsedTime}}</span></div>
+                            <div class="col-md-4"><span tooltip="Wall time spent executing the query (not including queued time)" placement="right" container="body"><i class="fa fa-tachometer"
+                                ></i>{{row?.queryStats?.totalCpuTime}}</span></div>
+                          </div>
+                          <div class="row m-0 mb-1">
+                            <div class="col-md-4"><span tooltip="Completed splits" placement="right" container="body"><i class="fa fa-check-square"
+                                ></i>{{row?.queryStats?.totalDrivers}}</span>
+                              </div>
+                            <div class="col-md-4"><span tooltip="Running splits" placement="right" container="body"><i class="fa fa-play"
+                                ></i>{{row?.queryStats?.runningDrivers}}</span></div>
+                            <div class="col-md-4"><span tooltip="Queued splits" placement="right" container="body"><i class="fa fa-pause"
+                                ></i>{{row?.queryStats?.queuedDrivers}}</span></div>
+                          </div>
+                          <div class="row m-0 mb-2">
+                            <div class="col-md-4"><span tooltip="Current total reserved memory" placement="right" container="body"><i class="fa fa-window-restore"
+                                ></i>{{row?.queryStats?.totalMemoryReservation}}</span></div>
+                            <div class="col-md-4"><span tooltip="Peak total memory" placement="right" container="body"><i class="fa fa-fire"
+                                ></i>{{row?.queryStats?.peakTotalMemoryReservation}}</span></div>
+                            <div class="col-md-4"><span tooltip="Cumulative user memory" placement="right" container="body"><i class="fa fa-align-center"
+                                ></i>{{row?.queryStats?.cumulativeUserMemory}}</span></div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 pl-0 pt-1">
+                          <textarea highlight-js [lang]="'sql'" [ngModel]="row.query"></textarea>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-row-detail>
+
+                  <ngx-datatable-column name="Name">
+                    <ng-template ngx-datatable-cell-template let-row="row">
+                      <span class="d-block p-2 bg-dark text-white">{{row?.session?.queryId}}&nbsp;&nbsp; <span
+                          class="pull-right">{{row?.queryStats?.createTime | date : 'h:mm:ss a'}}</span></span>
+
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Cluster URL">
+                    <ng-template ngx-datatable-cell-template let-row="row">
+                      <div [ngClass]="row.state=='FAILED' ? 'bg-danger' : 'bg-success'"
+                        class="p-2 mb-0 bg-success text-white">{{row.state}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [width]="100" [resizeable]="false" [sortable]="false" [draggable]="false"
+                    [canAutoResize]="false" [frozenRight]="true">
+                    <ng-template let-row="row" let-rowIndex="rowIndex" let-expanded="expanded"
+                      ngx-datatable-cell-template>
+                      <a *ngIf="isCheck" href="javascript:void(0)" [class.datatable-icon-right]="!expanded"
+                        [class.datatable-icon-down]="expanded" title="Expand/Collapse Row"
+                        (click)="toggleExpandRow(row)">View Stats
+                      </a>
+                    </ng-template>
+                  </ngx-datatable-column>
+                </ngx-datatable>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>

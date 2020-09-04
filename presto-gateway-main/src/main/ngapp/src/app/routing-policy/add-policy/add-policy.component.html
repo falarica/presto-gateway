@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <form name="form" [formGroup]="policyForm" (ngSubmit)="onConfirm()" class="form-horizontal">
+                    <div *ngIf="message!=''" class="form-group alert alert-danger" role="alert">
+                        {{message}}
+                      </div>
+                    <div class="form-group">
+                        <label class="control-label" for="form-control-1">Name : </label>
+                        <input id="form-control-1" class="form-control" type="text" name="name" formControlName="name"
+                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Routing Rules :</label>
+                        <select id="form-control-21" formControlName="rule" class="custom-select">
+                            <option *ngFor="let rule of rules; let i = index"
+                            [ngValue]="rules[i].name">{{rules[i].name}}</option>
+                          </select>
+                    </div>
+
+                    <div class="form-group pt-3">
+                    <button type="submit" class="btn btn-success mr-2">{{formType=='add' ? 'Add Policy' : 'Save'}}</button>
+                    <a (click)="onCancel()" class="btn btn-danger text-white">Cancel</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

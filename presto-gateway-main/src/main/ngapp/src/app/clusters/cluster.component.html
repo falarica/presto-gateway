@@ -1,0 +1,60 @@
+<div class="" id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row row-stat">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-md-12">
+          <div class="panel panel-default panel-table">
+            <div class="panel-heading panel-heading-no-divider">Clusters
+              <button (click)="openModal()" class="btn btn-success pull-right">Add Cluster</button>
+            </div>
+            
+                <div class="table-responsive">
+                  <ngx-datatable #mydatatable class="bootstrap" [sortType]="'multi'" [headerHeight]="50" [footerHeight]="40"
+                    [rowHeight]="'auto'" [rows]="clusterList" [columnMode]="'force'" [limit]="10" [loadingIndicator]="loadingIndicator">
+                    <ngx-datatable-column name="Name">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        {{row?.name}}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Cluster URL">
+                      <ng-template ngx-datatable-cell-template let-value="value">
+                        <a href="{{value}}" target="_blank">{{value}}</a>
+                      </ng-template>
+                    </ngx-datatable-column>
+                   <ngx-datatable-column name="Location">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        {{row?.location}}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Account User">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        {{row?.adminName}}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Account Password">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        <input type="password" class="password" value="{{row?.adminPassword}}" />
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Actions">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        <button class="btn p-0 mr-3"(click)="openDetailModal(row)"><i class="fa fa-eye text-success"></i></button>
+                        <button class="btn p-0 mr-3"(click)="openEditModal(row)"><i class="fa fa-pencil text-success"></i></button>
+                        <button class="btn p-0"(click)="openDelModal(template,row)"><i class="fa fa-trash text-danger"></i></button>                        
+                      </ng-template>
+                    </ngx-datatable-column>                    
+                  </ngx-datatable>                  
+                </div>
+              </div>
+            </div>            
+      </div>
+    </div>
+  </div>
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p class="mb-2">Do you want to confirm?</p>
+      <button type="button" class="btn btn-primary mr-2" (click)="confirm()" >Yes</button>
+      <button type="button" class="btn btn-danger" (click)="decline()" >No</button>
+    </div>
+  </ng-template>

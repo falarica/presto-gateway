@@ -1,0 +1,19 @@
+<div class="sidebar hidden-sm-down">
+    <ul class="nav in" id="side-menu">              
+        <li><a [routerLink]="['/dashboard']" [routerLinkActive]="['active']" class="waves-effect"><i class="fa fa-home"></i> <span
+                class="hide-menu">Dashboard</span></a>
+        </li>
+        <li>
+            <a  [routerLink]="['/clusters']" [routerLinkActive]="['active']">
+                <i class="fa fa-edit"></i>
+                <span class="hide-menu">Clusters</span>
+            </a>
+        </li>
+        <li>
+            <a  [routerLink]="['/routing-rules']" [routerLinkActive]="['active']">
+                <i class="fa fa-registered"></i>
+                <span class="hide-menu">Routing</span>
+            </a>
+        </li>       
+    </ul>
+</div>

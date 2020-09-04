@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table clusterDetail" *ngIf="cluster!=undefined">
+                        <tbody>
+                            <tr>
+                                <td style="border: 0px;"><b>Name :</b></td>
+                                <td style="border: 0px;">{{cluster[0]?.clusterName}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Cluster Url :</b></td>
+                                <td>{{cluster[0]?.clusterUrl}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Location :</b></td>
+                                <td>{{cluster[0]?.location}}</td>
+                            </tr>
+                            <tr *ngFor="let item of cluster[0]?.prestoClusterStats | keyvalue">
+                                <td>
+                                    <b>{{item.key}} :</b>
+                                </td>
+                                <td>{{item.value}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <button (click)="onCancel()" class="btn btn-success">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

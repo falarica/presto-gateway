@@ -1,0 +1,74 @@
+<div class="" id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row row-stat">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-default panel-table">
+                <div class="panel-heading panel-heading-no-divider" style="padding-top: 0;">Routing Policy</div>
+
+                    <div id="policy" class="table-responsive">
+                      <ngx-datatable #mydatatable class="bootstrap" [sortType]="'multi'" [headerHeight]="50" [footerHeight]="40"
+                        [rowHeight]="'auto'" [rows]="policy" [columnMode]="'force'" [limit]="10" [loadingIndicator]="loadingIndicator">
+                        <ngx-datatable-column name="Name">
+                          <ng-template ngx-datatable-cell-template let-row="row">
+                            {{row?.name}}
+                          </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Rules">
+                          <ng-template ngx-datatable-cell-template let-row="row">
+                            {{row?.routingRules}}
+                          </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Actions">
+                          <ng-template ngx-datatable-cell-template let-row="row">
+                            <button *ngIf="row?.name != '__ROUND_ROBIN_' && row?.name != '__RANDOM__'"
+                        class="btn p-0"  (click)="openPolicyModal()"><i class="fa fa-pencil text-primary"></i></button>
+                          </ng-template>
+                        </ngx-datatable-column>
+                      </ngx-datatable>
+                    </div>
+                  </div>
+          <div class="panel panel-default panel-table">
+            <div class="panel-heading panel-heading-no-divider" style="padding-top: 0;">Routing Rules
+              <button (click)="openModal()" class="btn btn-success pull-right">Add Rules</button>
+            </div>
+
+                <div class="table-responsive">
+                  <ngx-datatable #mydatatable class="bootstrap" [sortType]="'multi'" [headerHeight]="50" [footerHeight]="40"
+                    [rowHeight]="'auto'" [rows]="rules" [columnMode]="'force'" [limit]="10" [loadingIndicator]="loadingIndicator">
+                    <ngx-datatable-column name="Name">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        {{row?.name}}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Type">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        {{row?.type}}
+                      </ng-template>
+                    </ngx-datatable-column>
+                   <ngx-datatable-column name="Number of Queries">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        {{row?.type=='QUEUEDQUERY' ? row?.properties?.numQueuedQueries : row?.properties?.numRunningQueries}}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Actions">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        <button *ngIf="row?.name != '__ROUND_ROBIN_' && row?.name != '__RANDOM__'"
+                        class="btn p-0" (click)="openDelModal(template,row)"><i class="fa fa-trash text-danger"></i></button>
+                      </ng-template>
+                    </ngx-datatable-column>
+                  </ngx-datatable>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p class="mb-2">Do you want to confirm?</p>
+      <button type="button" class="btn btn-primary mr-2" (click)="confirm()" >Yes</button>
+      <button type="button" class="btn btn-danger" (click)="decline()" >No</button>
+    </div>
+  </ng-template>

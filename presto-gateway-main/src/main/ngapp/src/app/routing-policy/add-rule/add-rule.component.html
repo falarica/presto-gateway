@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <form name="form" [formGroup]="AddRuleForm" (ngSubmit)="onConfirm()" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label" for="form-control-1">Name : </label>
+                        <input id="form-control-1" class="form-control" type="text" name="name" formControlName="name"
+                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Type :</label>
+                        <div class="row">
+                        <div class="radio col-md-7">
+                            <label>
+                                <input type="radio" #radio1 formControlName="type" name="type" value="QUEUEDQUERY" checked="true"> QUEUEDQUERY
+                            </label>
+                        </div>
+                        <div class="radio col-md-7">
+                            <label>
+                                <input type="radio" formControlName="type" name="type" value="RUNNINGQUERY"> RUNNINGQUERY
+                            </label>
+                        </div>
+                    </div>
+                    </div>
+                    <div *ngIf="f.type.value=='RUNNINGQUERY' || f.type.value=='QUEUEDQUERY'" class="form-group" formGroupName="properties">
+                        <label class="control-label" for="form-control-1">Number of {{radio1.checked ? 'Queued' : 'Running'}} Queries</label>
+                        <input id="form-control-1" class="form-control" type="number" name="numQueuedQueries" formControlName="numQueuedQueries"
+                        [ngClass]="{ 'is-invalid': submitted && f.properties['controls'].numQueuedQueries.errors }">
+                    </div>
+
+                    <div class="form-group pt-3">
+                    <button type="submit" class="btn btn-success mr-2">Add Rule</button>
+                    <a (click)="onCancel()" class="btn btn-danger text-white">Cancel</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+version: '3'
+services:
+    steerdmetastore:
+      image: steerd-postgresql:${GATEWAY_VERSION}
+      container_name: steerdmetastore
+      environment:
+        - POSTGRES_DB=prestogateway
+        - POSTGRES_USER=prestogateway
+        - POSTGRES_PASSWORD=$PGPASSWORD
+      ports:
+        - "5432:5432"
+      volumes:
+        - steerd-postgresql-vol:/var/lib/postgresql/data
+      networks:
+        - steerd-network
+    hivemetastore:
+      container_name: hivemetastore
+      image: hivemetastore:${GATEWAY_VERSION}
+      env_file:
+        - ${HADOOP_HIVE_ENV_FILE}
+      environment:
+        - SERVICE_PRECONDITION=steerdmetastore:5432
+      volumes:
+        - /tmp/filedata:/tmp/filedata
+      ports:
+        - "9083:9083"
+      networks:
+        - steerd-network
+      depends_on:
+        - steerdmetastore
+    prestoserver:
+      container_name: prestoserver
+      image: prestosql/presto:334
+      volumes:
+        - ${PRESTO_CONFIG_DIR}:/etc/presto
+        - /tmp/filedata:/tmp/filedata
+      ports:
+        - "8081:8080"
+      networks:
+        - steerd-network
+      depends_on:
+        - steerdmetastore
+        - hivemetastore
+    steerdgateway:
+      container_name: steerdgateway
+      image: steerd-gateway:${GATEWAY_VERSION}
+      volumes:
+        - ${GATEWAY_CONFIG_DIR}:/etc/presto-gateway-steerd
+      environment:
+        - SERVICE_PRECONDITION=steerdmetastore:5432 hivemetastore:9083
+      ports:
+        - "8080:8080"
+      networks:
+        - steerd-network
+      depends_on:
+        - steerdmetastore
+        - hivemetastore
+networks:
+  steerd-network:
+volumes:
+  steerd-postgresql-vol:

@@ -1,0 +1,34 @@
+app-query{
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row{padding: 0px !important;}
+svg{width: 16px;margin: -3px 5px 0 5px;}
+.datatable-header-cell{display:none !important}
+.datatable-row-right{transform: translate3d(10px, 0px, 0px) !important;}
+pre {
+    height:90px;
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+.datatable-row-wrapper:nth-child(odd) {
+    background:rgba(0, 0, 0, 0.05);
+  }
+.fa{font-size: 17px;margin-right:5px;}
+.hljs {
+    color: #262627;
+    background: transparent;
+}
+.hljs-attr, .hljs-variable, .hljs-template-variable, .hljs-type, .hljs-selector-class, .hljs-selector-attr, .hljs-selector-pseudo, .hljs-number {
+    color: #d06907;
+}
+.hljs-string, .hljs-regexp, .hljs-addition, .hljs-attribute, .hljs-meta-string {
+    color: #57c507;
+}
+.hljs-doctag, .hljs-keyword, .hljs-formula {
+    color: #8910ad;
+}
+.hljs-built_in, .hljs-class .hljs-title {
+    color: #c38005;
+}
+}
