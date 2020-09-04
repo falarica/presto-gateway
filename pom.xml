@@ -138,8 +138,6 @@
         <module>presto-proxy</module>
         <module>presto-gateway-main</module>
         <module>presto-gateway</module>
-        <module>presto-gateway-steerd-main</module>
-        <module>presto-gateway-steerd</module>
         <module>presto-kudu</module>
         <module>presto-elasticsearch</module>
         <module>presto-iceberg</module>
