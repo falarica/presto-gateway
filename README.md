@@ -1,11 +1,20 @@
-# Presto
-[![Maven Central](https://img.shields.io/maven-central/v/io.prestosql/presto-server.svg?label=Download)](https://prestosql.io/download.html)
-[![Presto Slack](https://img.shields.io/static/v1?logo=slack&logoColor=959DA5&label=Slack&labelColor=333a41&message=join%20conversation&color=3AC358)](https://prestosql.io/slack.html)
-[![Presto: The Definitive Guide book download](https://img.shields.io/badge/Presto%3A%20The%20Definitive%20Guide-download-brightgreen)](https://www.starburstdata.com/oreilly-presto-guide-download/)
+# Presto Gateway
+Presto Gateway is a Policy based query router for PrestoDB/PrestoSQL query. 
+It sits in front of multiple or single presto clusters and becomes the interface for users. 
+It can be used as a Load Balancer, to achieve high availability  as well as a proxy. Its support for secure Presto clusters as well
+as user authentication makes it fit for Production environment. 
 
-Presto is a distributed SQL query engine for big data.
+There are several advantages of using Presto Gateway:
+- It also provides a single UI interface for all the queries executed across the clusters.
+- Ensuring High Availability in case of planned as well as accidental downtime.
+- Load balance your clusters using rules which balances the load across the cluster.
+- Having Rule based approach can also help in giving priority to a particular cluster. 
 
-See the [User Manual](https://prestosql.io/docs/current/) for deployment instructions and end user documentation.
+
+See the 
+[REST API](https://github.com//current/) for rest API documentation\n
+[DOCKER API](https://github.com//current/) for Docker Deployment
+[DOCKER API](https://github.com//current/) for SSL Settings
 
 ## Requirements
 
@@ -25,11 +34,11 @@ Presto has a comprehensive set of unit tests that can take several minutes to ru
 
     ./mvnw clean install -DskipTests
 
-## Running Presto in your IDE
+## Running PrestoGateway in your IDE
 
 ### Overview
 
-After building Presto for the first time, you can load the project into your IDE and run the server. We recommend using [IntelliJ IDEA](http://www.jetbrains.com/idea/). Because Presto is a standard Maven project, you can import it into your IDE using the root `pom.xml` file. In IntelliJ, choose Open Project from the Quick Start box or choose Open from the File menu and select the root `pom.xml` file.
+After building Presto Gateway for the first time, you can load the project into your IDE and run the server. We recommend using [IntelliJ IDEA](http://www.jetbrains.com/idea/). Because Presto is a standard Maven project, you can import it into your IDE using the root `pom.xml` file. In IntelliJ, choose Open Project from the Quick Start box or choose Open from the File menu and select the root `pom.xml` file.
 
 After opening the project in IntelliJ, double check that the Java SDK is properly configured for the project:
 
@@ -39,41 +48,24 @@ After opening the project in IntelliJ, double check that the Java SDK is properl
 
 Presto comes with sample configuration that should work out-of-the-box for development. Use the following options to create a run configuration:
 
-* Main Class: `io.prestosql.server.PrestoServer`
+* Main Class: `io.prestosql.gateway.PrestoGateway`
 * VM Options: `-ea -XX:+UseG1GC -XX:G1HeapRegionSize=32M -XX:+UseGCOverheadLimit -XX:+ExplicitGCInvokesConcurrent -Xmx2G -Dconfig=etc/config.properties -Dlog.levels-file=etc/log.properties -Djdk.attach.allowAttachSelf=true`
 * Working directory: `$MODULE_DIR$`
-* Use classpath of module: `presto-server-main`
+* Use classpath of module: `presto-gateway-main`
 
-The working directory should be the `presto-server-main` subdirectory. In IntelliJ, using `$MODULE_DIR$` accomplishes this automatically.
-
-Additionally, the Hive plugin must be configured with the location of your Hive metastore Thrift service. Add the following to the list of VM options, replacing `localhost:9083` with the correct host and port (or use the below value if you do not have a Hive metastore):
-
-    -Dhive.metastore.uri=thrift://localhost:9083
-
-### Using SOCKS for Hive or HDFS
-
-If your Hive metastore or HDFS cluster is not directly accessible to your local machine, you can use SSH port forwarding to access it. Setup a dynamic SOCKS proxy with SSH listening on local port 1080:
-
-    ssh -v -N -D 1080 server
-
-Then add the following to the list of VM options:
-
-    -Dhive.metastore.thrift.client.socks-proxy=localhost:1080
-    -Dhive.hdfs.socks-proxy=localhost:1080
-
-### Running the CLI
-
-Start the CLI to connect to the server and run SQL queries:
-
-    presto-cli/target/presto-cli-*-executable.jar
-
-Run a query to see the nodes in the cluster:
-
-    SELECT * FROM system.runtime.nodes;
-
-In the sample configuration, the Hive connector is mounted in the `hive` catalog, so you can run the following queries to show the tables in the Hive database `default`:
-
-    SHOW TABLES FROM hive.default;
+The working directory should be the `presto-gateway-main` subdirectory. In IntelliJ, using `$MODULE_DIR$` accomplishes this automatically.
+   
+Additionally, the meta store must be configured with the location of your PostgreSQL instance. The configuration
+for meta store can be provided in the file hikaricp.properties:
+    
+    minimumIdle=5
+    connectionTestQuery=SELECT 1
+    autoCommit=true
+    maximumPoolSize=10
+    jdbcUrl=jdbc:postgresql://127.0.0.1:5432/prestogateway
+    username=prestogateway
+    password=root123
+    driverClassName=org.postgresql.Driver
 
 ## Development
 
@@ -108,22 +100,15 @@ Disable the following inspections:
 - ``Java | Abstraction issues | 'Optional' used as field or parameter type``.
 
 ### Building the Web UI
+To build the UI for gateway, following steps need to carried out before the code is built. 
 
-The Presto Web UI is composed of several React components and is written in JSX and ES6. This source code is compiled and packaged into browser-compatible Javascript, which is then checked in to the Presto source code (in the `dist` folder). You must have [Node.js](https://nodejs.org/en/download/) and [Yarn](https://yarnpkg.com/en/) installed to execute these commands. To update this folder after making changes, simply run:
+Prerequisites:  Node package manager(npm) should be pre-installed. 
 
-    yarn --cwd presto-main/src/main/resources/webapp/src install
-
-If no Javascript dependencies have changed (i.e., no changes to `package.json`), it is faster to run:
-
-    yarn --cwd presto-main/src/main/resources/webapp/src run package
-
-To simplify iteration, you can also run in `watch` mode, which automatically re-compiles when changes to source files are detected:
-
-    yarn --cwd presto-main/src/main/resources/webapp/src run watch
-
-To iterate quickly, simply re-build the project in IntelliJ after packaging is complete. Project resources will be hot-reloaded and changes are reflected on browser refresh.
-
-## Writing and Building Documentation
-
-More information about the documentation process can be found in the
-[README file in presto-docs](./presto-docs/README.md).
+- Install dependencies needed for gateway UI
+```
+$ npm install presto-gateway-main/src/main/ngapp/
+```
+- Build gateway UI
+```
+$ npm run-script build --prefix=presto-gateway-main/src/main/ngapp/ 
+``` 
