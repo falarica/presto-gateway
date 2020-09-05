@@ -892,7 +892,7 @@ public class InternalResourceGroup
         checkState(Thread.holdsLock(root), "Must hold lock");
         synchronized (root) {
             log.debug("The descendantQueuedQueries " + descendantQueuedQueries + " queued query " + queuedQueries.size()
-            + " maxQueuedQueries " + maxQueuedQueries);
+                    + " maxQueuedQueries " + maxQueuedQueries);
             return descendantQueuedQueries + queuedQueries.size() < maxQueuedQueries;
         }
     }
