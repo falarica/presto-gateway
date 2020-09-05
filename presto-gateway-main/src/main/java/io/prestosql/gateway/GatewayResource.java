@@ -613,7 +613,7 @@ public class GatewayResource
             this.dispatchManager.updateHeartbeat(gatewayQueryId);
             return (Void) null;
         }
-        log.info("Going to store the queryInfo for queryid " + queryId);
+        log.debug("Going to store the queryInfo for queryid " + queryId);
         try {
             String qInfo = this.queryHistoryManager.scheduleStatsFetchForCompletedQuery(new QueryDetail(queryId,
                     null, null, null,

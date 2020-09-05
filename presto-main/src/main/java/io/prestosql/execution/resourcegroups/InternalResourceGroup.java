@@ -626,7 +626,7 @@ public class InternalResourceGroup
         checkState(Thread.holdsLock(root), "Must hold lock to enqueue a query");
         synchronized (root) {
             queuedQueries.addOrUpdate(query, getQueryPriority(query.getSession()));
-            log.info("Enqueuing query queue size " + queuedQueries.size());
+            log.info("Enqueuing query, current queue size " + queuedQueries.size());
             InternalResourceGroup group = this;
             while (group.parent.isPresent()) {
                 group.parent.get().descendantQueuedQueries++;
@@ -661,8 +661,6 @@ public class InternalResourceGroup
     private void startInBackground(ManagedQueryExecution query)
     {
         checkState(Thread.holdsLock(root), "Must hold lock to start a query");
-
-        log.info("Starting the query in back ground.. " + query);
         synchronized (root) {
             runningQueries.put(query, new ResourceUsage(0, 0));
             InternalResourceGroup group = this;
@@ -678,7 +676,6 @@ public class InternalResourceGroup
 
     private void queryFinished(ManagedQueryExecution query)
     {
-        log.info("The query finished " + query);
         synchronized (root) {
             if (!runningQueries.containsKey(query) && !queuedQueries.contains(query)) {
                 // Query has already been cleaned up
@@ -894,6 +891,8 @@ public class InternalResourceGroup
     {
         checkState(Thread.holdsLock(root), "Must hold lock");
         synchronized (root) {
+            log.debug("The descendantQueuedQueries " + descendantQueuedQueries + " queued query " + queuedQueries.size()
+            + " maxQueuedQueries " + maxQueuedQueries);
             return descendantQueuedQueries + queuedQueries.size() < maxQueuedQueries;
         }
     }
