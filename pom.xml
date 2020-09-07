@@ -169,19 +169,6 @@
 
             <dependency>
                 <groupId>io.prestosql</groupId>
-                <artifactId>steerd-resource-group-managers</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.prestosql</groupId>
-                <artifactId>steerd-resource-group-managers</artifactId>
-                <version>${project.version}</version>
-                <type>test-jar</type>
-            </dependency>
-
-            <dependency>
-                <groupId>io.prestosql</groupId>
                 <artifactId>presto-password-authenticators</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -265,7 +252,7 @@
                 <artifactId>presto-local-file</artifactId>
                 <version>${project.version}</version>
             </dependency>
-	    
+
 	    <dependency>
                 <groupId>io.prestosql</groupId>
                 <artifactId>presto-gateway-main</artifactId>
