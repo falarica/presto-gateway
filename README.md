@@ -12,11 +12,11 @@ There are several advantages of using Presto Gateway:
 
 
 See the 
-- [REST API](https://github.com//current/) for rest API documentation\n
-- [DOCKER API](https://github.com//current/) for Docker Deployment
-- [HTTP](https://github.com//current/) for SSL Settings
-- [WEB UI](https://github.com//current/) for Web UI
-- [ROUTING RULES](https://github.com//current/) for Description of RoutingRules
+- [REST API](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/rest_apis.md) for rest API documentation\n
+- [DOCKER API](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/docker.md) for Docker Deployment
+- [HTTP](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/https.md) for SSL Settings
+- [WEB UI](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/prestoui.md) for Web UI
+- [ROUTING RULES](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/routingrules.md) for Description of RoutingRules
 
 ## Requirements
 
