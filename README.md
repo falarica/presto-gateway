@@ -126,3 +126,7 @@ $ npm install presto-gateway-main/src/main/ngapp/
 ```
 $ npm run-script build --prefix=presto-gateway-main/src/main/ngapp/ 
 ``` 
+### What is not working
+- HTTPS presto clusters require that Presto Gateway be HTTPS enabled and vice versa
+- There is no authorization in Gateway
+- All presto clusters need to be identical for the query to work transparently across clusters
