@@ -151,6 +151,21 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- for testing -->
+        <dependency>
+            <groupId>io.prestosql</groupId>
+            <artifactId>presto-resource-group-managers</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.prestosql</groupId>
+            <artifactId>presto-resource-group-managers</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+
+
         <!-- for benchmarks -->
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
