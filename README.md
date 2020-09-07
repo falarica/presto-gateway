@@ -24,7 +24,7 @@ See the
 * Java 11, 64-bit
 * Python 2.6+ (for running with the launcher script)
 
-## Building Presto
+## Building Presto Gateway
 
 Presto is a standard Maven project. Simply run the following command from the project root directory:
 
@@ -58,7 +58,7 @@ Presto comes with sample configuration that should work out-of-the-box for devel
 The working directory should be the `presto-gateway-main` subdirectory. In IntelliJ, using `$MODULE_DIR$` accomplishes this automatically.
    
 Additionally, the meta store must be configured with the location of your PostgreSQL instance. The configuration
-for meta store can be provided in the file hikaricp.properties:
+for meta store can be provided in the file **hikaricp.properties**:
     
     minimumIdle=5
     connectionTestQuery=SELECT 1
