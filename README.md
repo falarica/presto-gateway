@@ -5,16 +5,18 @@ It can be used as a Load Balancer, to achieve high availability  as well as a pr
 as user authentication makes it fit for Production environment. 
 
 There are several advantages of using Presto Gateway:
-- It also provides a single UI interface for all the queries executed across the clusters.
+- It provides a single UI interface for all the queries executed across the clusters.
 - Ensuring High Availability in case of planned as well as accidental downtime.
 - Load balance your clusters using rules which balances the load across the cluster.
 - Having Rule based approach can also help in giving priority to a particular cluster. 
 
 
 See the 
-[REST API](https://github.com//current/) for rest API documentation\n
-[DOCKER API](https://github.com//current/) for Docker Deployment
-[DOCKER API](https://github.com//current/) for SSL Settings
+- [REST API](https://github.com//current/) for rest API documentation\n
+- [DOCKER API](https://github.com//current/) for Docker Deployment
+- [HTTP](https://github.com//current/) for SSL Settings
+- [WEB UI](https://github.com//current/) for Web UI
+- [ROUTING RULES](https://github.com//current/) for Description of RoutingRules
 
 ## Requirements
 
@@ -68,6 +70,18 @@ for meta store can be provided in the file hikaricp.properties:
     driverClassName=org.postgresql.Driver
 
 ## Development
+
+### Presto Gateway Module
+The code for PrestoGateway module is in **presto-gateway-main** module.
+The major components of the module are 
+- RoutingManager
+- MultiClusterManager
+- GatewayResource
+- ClusterMonitor
+- ClusterStatsObserver
+- ClusterMonitor
+- QueryExecutionMonitor
+
 
 ### Code Style
 

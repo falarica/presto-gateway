@@ -2,7 +2,7 @@
 Presto Gateway UI provides an easy web interface for managing multiple presto clusters for the Gateway. For users, it provides single interface to see their query across different PrestoSQL/DB clusters.
 
 # Login
-Presto Gateway supports user authentication. If authentication is not enabled, just provide username to login to the webui.
+Presto Gateway supports user authentication. If authentication is not enabled, just provide username to login to the WebUI.
 ![Alt text](images/login.png?raw=true "Login")
 
 # DashBoard
