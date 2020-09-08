@@ -1,5 +1,5 @@
 # Presto Gateway
-Presto Gateway is a Policy based query router for **PrestoDB/PrestoSQL** query. 
+Presto Gateway is a Policy based query router for **PrestoDB/PrestoSQL** cluster. 
 It sits in front of multiple or single presto clusters and becomes the interface for users. 
 It can be used as a Load Balancer, to achieve high availability as well as a proxy. Its support for secure Presto clusters as well
 as user authentication and transactions makes it fit for Production environment. 
