@@ -175,7 +175,7 @@ Disable the following inspections:
 - ``Java | Performance | Call to 'Arrays.asList()' with too few arguments``,
 - ``Java | Abstraction issues | 'Optional' used as field or parameter type``.
 
-### What is not working
+### Caveats
 - HTTPS presto clusters require that Presto Gateway be HTTPS enabled and vice versa
 - Supporting authorization in Gateway is work in progress.
 - Same authenticator should be used for the gateway and presto servers. 
