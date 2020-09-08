@@ -188,3 +188,6 @@ If you find an issue with Presto Gateway, please report it.
 You can also contribute fixes and new features as pull requests. You will need to
 sign a Contributor License Agreement ("CLA") before it can be accepted into the repository.
 
+### Community support
+* [Slack](https://join.slack.com/t/falarica/shared_invite/zt-gql1dl9i-mm6lOJYgsEUuF6JXIgxCcA) ![Slack](http://i.imgur.com/h3sc6GM.png)
+* [contact@falarica.io](contact@falarica.io)
