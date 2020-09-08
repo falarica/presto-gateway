@@ -1,7 +1,7 @@
 # Presto Gateway
-Presto Gateway is a Policy based query router for PrestoDB/PrestoSQL query. 
+Presto Gateway is a Policy based query router for **PrestoDB/PrestoSQL** query. 
 It sits in front of multiple or single presto clusters and becomes the interface for users. 
-It can be used as a Load Balancer, to achieve high availability  as well as a proxy. Its support for secure Presto clusters as well
+It can be used as a Load Balancer, to achieve high availability as well as a proxy. Its support for secure Presto clusters as well
 as user authentication makes it fit for Production environment. 
 
 There are several advantages of using Presto Gateway:
@@ -55,8 +55,20 @@ Presto comes with sample configuration that should work out-of-the-box for devel
 * Working directory: `$MODULE_DIR$`
 * Use classpath of module: `presto-gateway-main`
 
+
 The working directory should be the `presto-gateway-main` subdirectory. In IntelliJ, using `$MODULE_DIR$` accomplishes this automatically.
    
+The sample config.properties file is as follows:
+
+    node.environment=test
+    node.internal-address=localhost
+    http-server.http.enabled=true
+    http-server.http.port=8089
+    gateway.shared-secret-file=etc/secret.txt
+    gateway.clusterstats-pull-interval=10s
+    gateway.ui-max-queryInfo-list-size=100
+    datastore.hikariCPPropsFile=etc/hikaricp.properties
+
 Additionally, the meta store must be configured with the location of your PostgreSQL instance. The configuration
 for meta store can be provided in the file **hikaricp.properties**:
     
