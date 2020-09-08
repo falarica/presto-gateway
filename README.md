@@ -11,12 +11,12 @@ There are several advantages of using Presto Gateway:
 - Having Rule based approach can also help in giving priority to a particular cluster. 
 
 
-See the 
-- [REST API](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/rest_apis.md) for rest API documentation\n
-- [DOCKER API](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/docker.md) for Docker Deployment
-- [HTTP](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/https.md) for SSL Settings
-- [WEB UI](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/prestoui.md) for Web UI
-- [ROUTING RULES](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/routingrules.md) for Description of RoutingRules
+For detailed documentation see the 
+- [REST APIs](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/rest_apis.md)
+- [Getting Started with Docker](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/docker.md)
+- [HTTPS Support](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/https.md)
+- [Web UI](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/prestoui.md)
+- [Routing Rules](https://github.com/falarica/presto-gateway/blob/master/presto-gateway-docs/routingrules.md)
 
 ## Requirements
 
@@ -81,6 +81,31 @@ for meta store can be provided in the file **hikaricp.properties**:
     password=root123
     driverClassName=org.postgresql.Driver
 
+### Authentication
+To make Presto Gateway useful for Production scenarios, support for Authentication is added.
+There are differente types of Authentication enabled similar to Presto.
+
+**Password File Authentication**
+ 
+Presto can be configured to enable frontend password authentication over HTTPS for 
+clients, such as the CLI, or the JDBC and ODBC drivers. The username
+and password are validated against usernames and passwords stored in a file.
+
+**Password File Authentication Configuration**
+
+Enable password file authentication by creating an etc/password-authenticator.properties
+ file in the etc directory:
+
+    password-authenticator.name=file
+    file.password-file=/path/to/password.db
+
+You can provide following additional properties as well:
+
+    file.refresh-period : How often to reload the password file. Defaults to 1m.
+    file.auth-token-cache.max-size: Max number of cached authenticated passwords. Defaults to 1000.
+    
+For other Authentication configuration like kerberos, ldap please visit Presto's [security docs](https://prestosql.io/docs/current/security.html)
+
 ## Development
 
 ### Presto Gateway Module
@@ -97,7 +122,11 @@ The major components of the module are
 
 ### Code Style
 
-We recommend you use IntelliJ as your IDE. The code style template for the project can be found in the [codestyle](https://github.com/airlift/codestyle) repository along with our general programming and Java guidelines. In addition to those you should also adhere to the following:
+We recommend you use IntelliJ as your IDE.
+ The code style template for the project can be found in
+  the [codestyle](https://github.com/airlift/codestyle) repository along with our
+   general programming and Java guidelines. In addition to those you should also
+    adhere to the following:
 
 * Alphabetize sections in the documentation source files (both in the table of contents files and other regular documentation files). In general, alphabetize methods/variables/sections if such ordering already exists in the surrounding code.
 * When appropriate, use the stream API. However, note that the stream implementation does not perform well so avoid using it in inner loops or otherwise performance sensitive sections.
