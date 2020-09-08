@@ -2,7 +2,14 @@
 Presto Gateway is a Policy based query router for **PrestoDB/PrestoSQL** query. 
 It sits in front of multiple or single presto clusters and becomes the interface for users. 
 It can be used as a Load Balancer, to achieve high availability as well as a proxy. Its support for secure Presto clusters as well
-as user authentication makes it fit for Production environment. 
+as user authentication and transactions makes it fit for Production environment. 
+
+Presto Gateway is based on Presto Proxy and hence sits inside a prestosql repo.
+It uses multiple projects of Presto for things like security,
+ transaction support etc. However, it is not tied with any specific
+  version of Presto. In fact, it supports both PrestoDB and PrestoSQL.
+  
+In future, projects that are not needed will be removed from this repo.  
 
 There are several advantages of using Presto Gateway:
 - It provides a single UI interface for all the queries executed across the clusters.
@@ -35,6 +42,20 @@ On the first build, Maven will download all the dependencies from the internet a
 Presto has a comprehensive set of unit tests that can take several minutes to run. You can disable the tests when building:
 
     ./mvnw clean install -DskipTests
+
+### Building the Web UI
+To build the UI for gateway, following steps need to carried out before the code is built. 
+
+Prerequisites:  Node package manager(npm) should be pre-installed. 
+
+- Install dependencies needed for gateway UI
+```
+$ npm install presto-gateway-main/src/main/ngapp/
+```
+- Build gateway UI
+```
+$ npm run-script build --prefix=presto-gateway-main/src/main/ngapp/ 
+``` 
 
 ## Running PrestoGateway in your IDE
 
@@ -154,20 +175,15 @@ Disable the following inspections:
 - ``Java | Performance | Call to 'Arrays.asList()' with too few arguments``,
 - ``Java | Abstraction issues | 'Optional' used as field or parameter type``.
 
-### Building the Web UI
-To build the UI for gateway, following steps need to carried out before the code is built. 
-
-Prerequisites:  Node package manager(npm) should be pre-installed. 
-
-- Install dependencies needed for gateway UI
-```
-$ npm install presto-gateway-main/src/main/ngapp/
-```
-- Build gateway UI
-```
-$ npm run-script build --prefix=presto-gateway-main/src/main/ngapp/ 
-``` 
 ### What is not working
 - HTTPS presto clusters require that Presto Gateway be HTTPS enabled and vice versa
-- There is no authorization in Gateway
-- All presto clusters need to be identical for the query to work transparently across clusters
+- Supporting authorization in Gateway is work in progress.
+- Same authenticator should be used for the gateway and presto servers. 
+- All presto clusters need to have same catalogs for the queries to work transparently across clusters
+
+### Issues
+If you find an issue with Presto Gateway, please report it.
+
+### Contributing
+You can also contribute fixes and new features as pull requests. You will need to
+sign a Contributor License Agreement ("CLA") before it can be accepted into the repository.
