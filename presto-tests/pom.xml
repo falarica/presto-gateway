@@ -154,16 +154,17 @@
         <!-- for testing -->
         <dependency>
             <groupId>io.prestosql</groupId>
-            <artifactId>steerd-resource-group-managers</artifactId>
+            <artifactId>presto-resource-group-managers</artifactId>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.prestosql</groupId>
-            <artifactId>steerd-resource-group-managers</artifactId>
+            <artifactId>presto-resource-group-managers</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+
 
         <!-- for benchmarks -->
         <dependency>

@@ -1,5 +1,0 @@
-FROM postgres:9.6.18-alpine
-COPY *.sql /docker-entrypoint-initdb.d/
-COPY init.sql /docker-entrypoint-initdb.d/
-COPY steerdinit.sql /docker-entrypoint-initdb.d/
-

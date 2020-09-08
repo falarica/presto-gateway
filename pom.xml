@@ -165,17 +165,10 @@
                 <groupId>io.prestosql</groupId>
                 <artifactId>presto-resource-group-managers</artifactId>
                 <version>${project.version}</version>
-	    </dependency>
-
+	        </dependency>
             <dependency>
                 <groupId>io.prestosql</groupId>
-                <artifactId>steerd-resource-group-managers</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.prestosql</groupId>
-                <artifactId>steerd-resource-group-managers</artifactId>
+                <artifactId>presto-resource-group-managers</artifactId>
                 <version>${project.version}</version>
                 <type>test-jar</type>
             </dependency>
@@ -265,7 +258,7 @@
                 <artifactId>presto-local-file</artifactId>
                 <version>${project.version}</version>
             </dependency>
-	    
+
 	    <dependency>
                 <groupId>io.prestosql</groupId>
                 <artifactId>presto-gateway-main</artifactId>

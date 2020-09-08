@@ -75,7 +75,8 @@ services:
       container_name: gateway
       image: gateway:${GATEWAY_VERSION}
       volumes:
-        - ${GATEWAY_CONFIG_DIR}:/etc/presto-gateway
+        - ${GATEWAY_CONFIG_DIR}:/etc/presto-gateway:ro
+        - /tmp/filedata:/tmp/filedata
       environment:
         - SERVICE_PRECONDITION=steerdmetastore:5432 hivemetastore:9083
       ports:
