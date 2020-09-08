@@ -1,4 +1,4 @@
-# Contributing to Presto
+# Contributing to Presto Gateway
 
 ## Contributor License Agreement ("CLA")
 
