@@ -182,7 +182,7 @@ Disable the following inspections:
 - All presto clusters need to have same catalogs for the queries to work transparently across clusters
 
 ### Issues
-If you find an issue with Presto Gateway, please report it.
+If you find an issue with Presto Gateway, please report it...
 
 ### Contributing
 You can also contribute fixes and new features as pull requests. You will need to
